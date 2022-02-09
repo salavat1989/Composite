@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Composite</string>
+    <string name="choose_difficulty_level">Choose difficulty level:</string>
+    <string name="test">Test</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>

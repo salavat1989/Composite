@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_horizontal"
+        android:text="@string/choose_difficulty_level"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/buttonTestLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/test" />
+
+    <Button
+        android:id="@+id/buttonEasyLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/yellow"
+        android:text="@string/easy"
+        android:textColor="@color/material_dynamic_neutral_variant30" />
+
+    <Button
+        android:id="@+id/buttonMediumLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/green"
+        android:text="@string/medium"
+        android:textColor="@color/material_dynamic_neutral_variant30"
+        tools:ignore="TextContrastCheck" />
+
+    <Button
+        android:id="@+id/buttonHardLevel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/hard"
+        android:textColor="@color/material_dynamic_neutral_variant30"
+        tools:ignore="TextContrastCheck" />
+
+
+</LinearLayout>
