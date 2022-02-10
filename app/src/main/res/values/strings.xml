@@ -5,4 +5,12 @@
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="time_left">Left %s seconds</string>
+    <string name="right_answer_count">Right answers: %s (Minimum %s)</string>
+
+    <string name="result_questions_count_label">Questions:</string>
+    <string name="result_right_answer_count_label">Right answers:</string>
+    <string name="result_right_answer_percent_label">Right answers %:</string>
+    <string name="retry">Retry</string>
+    <string name="smile">smile</string>
 </resources>

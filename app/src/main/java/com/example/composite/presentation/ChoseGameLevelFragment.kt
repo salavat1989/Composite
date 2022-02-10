@@ -1,4 +1,4 @@
-package com.example.composite.presentatiion
+package com.example.composite.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,16 +10,17 @@ import com.example.composite.databinding.FragmentChoseLevelBinding
 import com.example.composite.domain.entyti.Level
 import java.lang.RuntimeException
 
-class ChoseGameLevelFragment:Fragment() {
-    private var _binding : FragmentChoseLevelBinding? = null
+class ChoseGameLevelFragment : Fragment() {
+    private var _binding: FragmentChoseLevelBinding? = null
     private val binding
-    get() = _binding?:throw RuntimeException("FragmentChoseLevelBinding is null")
+        get() = _binding ?: throw RuntimeException("FragmentChoseLevelBinding is null")
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentChoseLevelBinding.inflate(inflater,container,false)
+        _binding = FragmentChoseLevelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -41,11 +42,12 @@ class ChoseGameLevelFragment:Fragment() {
             launchGameFragment(Level.TEST)
         }
     }
-    fun launchGameFragment(level:Level){
+
+    private fun launchGameFragment(level: Level) {
         val fragment = GameFragment.newInstance(level)
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_fragment,fragment)
-            .addToBackStack(null)
+            .replace(R.id.main_fragment, fragment)
+            .addToBackStack(GameFragment.FRAGMENT_NAME)
             .commit()
     }
 

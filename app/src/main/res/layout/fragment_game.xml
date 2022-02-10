@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -10,7 +9,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Осталось 50 секунд"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -26,47 +24,31 @@
 
         <TextView
             android:id="@+id/textViewSum"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            style="@style/TextViewQuestion"
             android:background="@drawable/shape_oval"
-            android:backgroundTintMode="multiply"
-            android:gravity="center"
             android:minWidth="100dp"
-            android:padding="15dp"
-            android:text="100"
-            android:textSize="26sp"
             app:layout_constraintBottom_toTopOf="@id/textViewVisibleNumber"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewVisibleNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
+            style="@style/TextViewQuestion"
+            android:background="@drawable/shape_oval"
             android:minWidth="70dp"
-            android:padding="15dp"
-            android:text="100"
-            android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toStartOf="@id/textViewInvisibleNumber"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
 
         <TextView
             android:id="@+id/textViewInvisibleNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:gravity="center"
+            style="@style/TextViewQuestion"
+            android:background="@drawable/shape_oval"
             android:minWidth="70dp"
-            android:padding="15dp"
             android:text="\?"
-            android:textSize="26sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
             app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
@@ -87,7 +69,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="Состтояние игры"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -96,14 +77,14 @@
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
         app:layout_constraintGuide_end="200dp" />
 
     <TextView
         android:id="@+id/textViewAnswer1"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
         app:layout_constraintBottom_toTopOf="@+id/textViewAnswer4"
         app:layout_constraintEnd_toStartOf="@+id/textViewAnswer2"
         app:layout_constraintStart_toStartOf="parent"
@@ -111,29 +92,26 @@
 
     <TextView
         android:id="@+id/textViewAnswer2"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer4"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer5"
         app:layout_constraintEnd_toStartOf="@+id/textViewAnswer3"
         app:layout_constraintStart_toEndOf="@+id/textViewAnswer1"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/textViewAnswer3"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer4"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
+        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAnswer2"
         app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/textViewAnswer4"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewAnswer5"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,22 +119,20 @@
 
     <TextView
         android:id="@+id/textViewAnswer5"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/textViewAnswer6"
         app:layout_constraintStart_toEndOf="@+id/textViewAnswer4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer1" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer2" />
 
     <TextView
         android:id="@+id/textViewAnswer6"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="TextView"
+        style="@style/TextViewAnswer"
+        android:background="@drawable/shape_rectangle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textViewAnswer5"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer1" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
