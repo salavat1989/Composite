@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.composite.R
 import com.example.composite.databinding.FragmentChoseLevelBinding
+import com.example.composite.domain.entyti.Level
 import java.lang.RuntimeException
 
 class ChoseGameLevelFragment:Fragment() {
@@ -16,9 +18,35 @@ class ChoseGameLevelFragment:Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         _binding = FragmentChoseLevelBinding.inflate(inflater,container,false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.buttonEasyLevel.setOnClickListener {
+            launchGameFragment(Level.EASY)
+        }
+        binding.buttonEasyLevel.setOnClickListener {
+            launchGameFragment(Level.EASY)
+        }
+        binding.buttonMediumLevel.setOnClickListener {
+            launchGameFragment(Level.MEDIUM)
+        }
+        binding.buttonHardLevel.setOnClickListener {
+            launchGameFragment(Level.HARD)
+        }
+        binding.buttonTestLevel.setOnClickListener {
+            launchGameFragment(Level.TEST)
+        }
+    }
+    fun launchGameFragment(level:Level){
+        val fragment = GameFragment.newInstance(level)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_fragment,fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {
