@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/choseGameLevelFragment">
+
+    <fragment
+        android:id="@+id/choseGameLevelFragment"
+        android:name="com.example.composite.presentation.ChoseGameLevelFragment"
+        android:label="ChoseGameLevelFragment" >
+        <action
+            android:id="@+id/action_choseGameLevelFragment_to_gameFragment"
+            app:destination="@id/gameFragment"
+            app:launchSingleTop="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="com.example.composite.presentation.GameFragment"
+        android:label="GameFragment" >
+        <action
+            android:id="@+id/action_gameFragment_to_gameFinishFragment"
+            app:destination="@id/gameFinishFragment"
+            app:popUpTo="@id/gameFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="level"
+            app:argType="com.example.composite.domain.entyti.Level" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFinishFragment"
+        android:name="com.example.composite.presentation.GameFinishFragment"
+        android:label="GameFinishFragment" >
+        <argument
+            android:name="gameResult"
+            app:argType="com.example.composite.domain.entyti.GameResult" />
+    </fragment>
+</navigation>
