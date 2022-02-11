@@ -18,7 +18,7 @@ class GameFragment : Fragment() {
     private val viewModel: GameViewModel by lazy {
         ViewModelProvider(
             this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
+            GameViewModelFactory(requireActivity().application,level)
         )[GameViewModel::class.java]
     }
     private val tvAnswersList: List<TextView> by lazy {
@@ -94,8 +94,6 @@ class GameFragment : Fragment() {
         viewModel.enoughRightPercent.observe(viewLifecycleOwner) {
             binding.progressBar.progressTintList = ColorStateList.valueOf(getColorByState(it))
         }
-
-        viewModel.startGame(level)
     }
 
     override fun onDestroyView() {

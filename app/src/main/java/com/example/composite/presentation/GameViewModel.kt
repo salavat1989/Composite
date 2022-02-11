@@ -2,9 +2,9 @@ package com.example.composite.presentation
 
 import android.app.Application
 import android.os.CountDownTimer
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.composite.R
 import com.example.composite.data.CompositeRepositoryImpl
 import com.example.composite.domain.entyti.GameResult
@@ -15,9 +15,8 @@ import com.example.composite.domain.usecase.GenerateQuestionUseCase
 import com.example.composite.domain.usecase.GetGameSettingsUseCase
 import kotlin.math.max
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(private val application: Application,private val level:Level) : ViewModel() {
     private val repository = CompositeRepositoryImpl
-    private val context = application
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private var timer: CountDownTimer? = null
@@ -53,12 +52,11 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     val enoughRightCount: LiveData<Boolean>
         get() = _enoughRightCount
 
-    fun startGame(level: Level) {
+    init{
         _gameSettings = getGameSettingsUseCase(level)
         setDefaultValues()
         getNextQuestion()
         startGameTimer(gameSettings.gameTimeInSeconds)
-
     }
 
     private fun setDefaultValues() {
@@ -67,7 +65,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun getNextQuestion() {
-        _question.value = GenerateQuestionUseCase(repository)(gameSettings.maxSum)
+        _question.value = generateQuestionUseCase(gameSettings.maxSum)
     }
 
     private fun startGameTimer(countDownTimeSeconds: Int) {
@@ -77,7 +75,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         ) {
             override fun onTick(p0: Long) {
                 _leftTimeString.value = String.format(
-                    context.resources.getString(R.string.time_left),
+                    application.resources.getString(R.string.time_left),
                     (p0 / MILLISECONDS_IN_SECOND).toString()
                 )
             }
@@ -114,7 +112,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         _percentOfRightAnswers.value = calculatePercentOfRightAnswers()
 
         _rightAnswersProgress.value = String.format(
-            context.resources.getString(R.string.right_answer_count),
+            application.resources.getString(R.string.right_answer_count),
             countOfRightAnswers.toString(),
             gameSettings.minRightAnswersCount.toString()
         )
