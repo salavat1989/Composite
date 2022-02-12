@@ -1,138 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout>
 
-    <TextView
-        android:id="@+id/textViewTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <data>
 
+        <variable
+            name="viewModel"
+            type="com.example.composite.presentation.GameViewModel" />
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/textViewGameStatus"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTime">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/textViewSum"
-            style="@style/TextViewQuestion"
-            android:background="@drawable/shape_oval"
-            android:minWidth="100dp"
-            app:layout_constraintBottom_toTopOf="@id/textViewVisibleNumber"
+            android:id="@+id/textViewTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@{viewModel.leftTimeString}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewVisibleNumber"
-            style="@style/TextViewQuestion"
-            android:background="@drawable/shape_oval"
-            android:minWidth="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/textViewInvisibleNumber"
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/textViewGameStatus"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
+            app:layout_constraintTop_toBottomOf="@+id/textViewTime">
+
+            <TextView
+                android:id="@+id/textViewSum"
+                style="@style/TextViewQuestion"
+                android:background="@drawable/shape_oval"
+                android:minWidth="100dp"
+                app:getString="@{viewModel.question.sum}"
+                app:layout_constraintBottom_toTopOf="@id/textViewVisibleNumber"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textViewVisibleNumber"
+                style="@style/TextViewQuestion"
+                android:background="@drawable/shape_oval"
+                android:minWidth="70dp"
+                app:getString="@{viewModel.question.visibleNumber}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/textViewInvisibleNumber"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
+
+            <TextView
+                android:id="@+id/textViewInvisibleNumber"
+                style="@style/TextViewQuestion"
+                android:background="@drawable/shape_oval"
+                android:minWidth="70dp"
+                android:text="\?"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:secondaryProgress="@{viewModel.percentOfRightAnswersMin}"
+            app:enoughRightPercent="@{viewModel.enoughRightPercent}"
+            app:layout_constraintBottom_toTopOf="@+id/guideline3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:progressBarPrimary="@{viewModel.percentOfRightAnswers}" />
 
         <TextView
-            android:id="@+id/textViewInvisibleNumber"
-            style="@style/TextViewQuestion"
-            android:background="@drawable/shape_oval"
-            android:minWidth="70dp"
-            android:text="\?"
+            android:id="@+id/textViewGameStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="@{viewModel.rightAnswersProgress}"
+            app:enoughRightCount="@{viewModel.enoughRightCount}"
+            app:layout_constraintBottom_toTopOf="@+id/progressBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_end="200dp" />
+
+        <TextView
+            android:id="@+id/textViewAnswer1"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(0).toString()}"
+            app:layout_constraintBottom_toTopOf="@+id/textViewAnswer4"
+            app:layout_constraintEnd_toStartOf="@+id/textViewAnswer2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
+        <TextView
+            android:id="@+id/textViewAnswer2"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(1).toString()}"
+            app:layout_constraintBottom_toTopOf="@+id/textViewAnswer5"
+            app:layout_constraintEnd_toStartOf="@+id/textViewAnswer3"
+            app:layout_constraintStart_toEndOf="@+id/textViewAnswer1"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
+        <TextView
+            android:id="@+id/textViewAnswer3"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(2).toString()}"
+            app:layout_constraintBottom_toTopOf="@+id/textViewAnswer6"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewAnswer2"
+            app:layout_constraintTop_toTopOf="@+id/guideline3"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
+        <TextView
+            android:id="@+id/textViewAnswer4"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(3).toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewAnswer5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAnswer1"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
+        <TextView
+            android:id="@+id/textViewAnswer5"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(4).toString()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textViewAnswer6"
+            app:layout_constraintStart_toEndOf="@+id/textViewAnswer4"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAnswer2"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
+        <TextView
+            android:id="@+id/textViewAnswer6"
+            style="@style/TextViewAnswer"
+            android:background="@drawable/shape_rectangle"
+            android:text="@{viewModel.question.answers.get(5).toString()}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/textViewVisibleNumber"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSum" />
+            app:layout_constraintStart_toEndOf="@+id/textViewAnswer5"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAnswer3"
+            app:onAnswerClickListener="@{(answer)-> viewModel.checkAnswer(answer)}" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewGameStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="200dp" />
-
-    <TextView
-        android:id="@+id/textViewAnswer1"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer4"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAnswer2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <TextView
-        android:id="@+id/textViewAnswer2"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer5"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAnswer3"
-        app:layout_constraintStart_toEndOf="@+id/textViewAnswer1"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <TextView
-        android:id="@+id/textViewAnswer3"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toTopOf="@+id/textViewAnswer6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewAnswer2"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
-
-    <TextView
-        android:id="@+id/textViewAnswer4"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAnswer5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer1" />
-
-    <TextView
-        android:id="@+id/textViewAnswer5"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAnswer6"
-        app:layout_constraintStart_toEndOf="@+id/textViewAnswer4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer2" />
-
-    <TextView
-        android:id="@+id/textViewAnswer6"
-        style="@style/TextViewAnswer"
-        android:background="@drawable/shape_rectangle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textViewAnswer5"
-        app:layout_constraintTop_toBottomOf="@+id/textViewAnswer3" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

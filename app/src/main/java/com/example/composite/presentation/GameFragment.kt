@@ -54,47 +54,15 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
         observeViewModel()
-        setAnswerClickListeners()
     }
 
-    private fun setAnswerClickListeners() {
-        for (tv in tvAnswersList) {
-            tv.setOnClickListener {
-                viewModel.checkAnswer(tv.text.toString().toInt())
-            }
-        }
-    }
 
     private fun observeViewModel() {
-        viewModel.question.observe(viewLifecycleOwner) {
-            binding.textViewSum.text = it.sum.toString()
-            binding.textViewVisibleNumber.text = it.visibleNumber.toString()
-            for ((index, tv) in tvAnswersList.withIndex()) {
-                tv.text = it.answers[index].toString()
-            }
-        }
-        viewModel.leftTimeString.observe(viewLifecycleOwner) {
-            binding.textViewTime.text = it
-        }
-        viewModel.rightAnswersProgress.observe(viewLifecycleOwner) {
-            binding.textViewGameStatus.text = it
-        }
-        viewModel.percentOfRightAnswers.observe(viewLifecycleOwner) {
-            binding.progressBar.setProgress(it, true)
-        }
-        viewModel.percentOfRightAnswersMin.observe(viewLifecycleOwner) {
-            binding.progressBar.secondaryProgress = it
-        }
         viewModel.gameResult.observe(viewLifecycleOwner) {
             launchGameFinish(it)
-        }
-        viewModel.enoughRightCount.observe(viewLifecycleOwner) {
-            binding.textViewGameStatus.setTextColor(getColorByState(it))
-        }
-        viewModel.enoughRightPercent.observe(viewLifecycleOwner) {
-            binding.progressBar.progressTintList = ColorStateList.valueOf(getColorByState(it))
         }
     }
 
@@ -103,18 +71,7 @@ class GameFragment : Fragment() {
         _binding = null
     }
 
-    private fun getColorByState(state: Boolean): Int {
-        val colorId = if (state) {
-            android.R.color.holo_green_light
-        } else {
-            android.R.color.holo_red_light
-        }
-        return getColorByResId(colorId)
-    }
 
-    private fun getColorByResId(resId: Int): Int {
-        return ContextCompat.getColor(requireContext(), resId)
-    }
 
     private fun launchGameFinish(gameResult: GameResult) {
 //        requireActivity().supportFragmentManager.beginTransaction()

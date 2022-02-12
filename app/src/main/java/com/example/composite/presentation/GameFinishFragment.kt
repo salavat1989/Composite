@@ -37,6 +37,8 @@ class GameFinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.gameResult = args.gameResult
         binding.button.setOnClickListener {
             retryGame()
         }
@@ -46,21 +48,6 @@ class GameFinishFragment : Fragment() {
 //                    retryGame()
 //                }
 //            })
-        args.gameResult.let {
-            val imageId = if (it.isWin) {
-                R.drawable.win_smile
-            } else {
-                R.drawable.sad_smile
-            }
-            binding.imageView.setImageResource(imageId)
-
-            binding.tvQuestionCount.text = it.countOfQuestions.toString()
-            binding.tvRightAnswersCount.text = it.countOfRightAnswers.toString()
-            binding.tvPercent.text = String.format(
-                "%.3f",
-                (100 * it.countOfRightAnswers.toDouble() / max(it.countOfQuestions, 1))
-            )
-        }
     }
 
     private fun retryGame() {
